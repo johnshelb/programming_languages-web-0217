@@ -30,18 +30,12 @@ languages = {
 }
 def reformat_languages(languages)
   new_hash = {}
-  multi_styles=[]
   languages.each do |style,lang_hash|
     lang_hash.each do |lang,info_hash|
-      multi_styles<<style
-      if new_hash.has_key?(lang)
-          multi_styles<<style
-        info_hash[:style]=multi_styles
-      else
-        info_hash[:style]=[style]
+      new_hash[lang]||=info_hash
+      info_hash[:style]||=[]
+      new_hash[lang][:style]<<style
     end
-      new_hash[lang]=info_hash
   end
-end
 new_hash
 end
